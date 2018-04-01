@@ -1,7 +1,7 @@
 require('./config/config');
 // Modules
-// const { mongoose } = require('./db/mongoose');
-require('./playground/mogoose/mongoose')("mongodb://localhost:27017/CarService");
+const { mongoose } = require('./db/mongoose');
+// require('./playground/mogoose/mongoose')("mongodb://localhost:27017/CarService");
 
 const express = require('express');
 const bodyParser = require('body-parser');

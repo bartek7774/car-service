@@ -1,0 +1,6 @@
+/node_modules
+/config/config.json
+/playground
+photos/*
+/typings
+server_mock.js

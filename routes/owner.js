@@ -66,8 +66,8 @@ router.post('/owner/:id/car', async (req, res) => {
   // const uid = req.user.sub;
   let id = req.params.id;
   let body = {
-    model: req.body.title,
-    plate: req.body.content,
+    model: req.body.model,
+    plate: req.body.plate,
     cost: req.body.cost,
     isFullyDamaged: req.body.isFullyDamaged
   };

@@ -8,6 +8,16 @@ const { ObjectID } = require('mongodb');
 const { Owner } = require('./../models/owner');
 const { Car } = require('./../models/car');
 
+router.get('/cars/:id', (req, res) => {
+  let id=req.params.id;
+  Car.findById(id).then((car) => {
+    if (!car) {
+      return res.status(404).send();
+    }
+    res.send(car);
+  }).catch(e => res.status(400).send());
+});
+
 // GET returns cars
 router.get('/cars', (req, res) => {
   Car.find({}).then((cars) => {

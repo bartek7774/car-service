@@ -9,7 +9,7 @@ const { Owner } = require('./../models/owner');
 const { Car } = require('./../models/car');
 
 router.get('/cars/:id', (req, res) => {
-  let id=req.params.id;
+  let id = req.params.id;
   Car.findById(id).then((car) => {
     if (!car) {
       return res.status(404).send();
@@ -26,6 +26,24 @@ router.get('/cars', (req, res) => {
     }
     res.send(cars);
   }).catch(e => res.status(400).send());
+});
+
+// PATCH update info
+//jwtCheck, jwtAuthz(['update:info']),
+router.patch('/cars/:id', (req, res) => {
+  let id = req.params.id;
+  let body = {
+    model: req.body.model,
+    plate: req.body.plate,
+    cost: req.body.cost,
+    isFullyDamaged: req.body.isFullyDamaged
+  };
+  // if (!ObjectID.isValid(id)) return res.status(404).send();
+  Car.findOneAndUpdate({ _id: id }, { $set: body }, { new: true })
+    .then((car) => {
+      if (!car) return res.status(404).send();
+      res.send(car);
+    }).catch((e) => res.status(404).send());
 });
 
 // GET returns owner with given id

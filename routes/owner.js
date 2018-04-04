@@ -39,6 +39,16 @@ router.get('/owner/:id', (req, res) => {
   }).catch(e => res.status(400).send());
 });
 
+// GET returns all the owners
+router.get('/owners', (req, res) => {
+  Owner.find({}).then((owners) => {
+    if (!owners) {
+      return res.status(404).send();
+    }
+    res.send(owners);
+  }).catch(e => res.status(400).send());
+});
+
 // GET returns cars given owner
 router.get('/owner/:id/cars', (req, res) => {
   let id = req.params.id;

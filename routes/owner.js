@@ -49,12 +49,13 @@ router.patch('/cars/:id', (req, res) => {
 router.delete('/cars/:id', async (req, res) => {
   let id = req.params.id;
   // if (!ObjectID.isValid(id)) return res.status(404).send();
+
   try {
     let car = await Car.findByIdAndRemove({ _id: id });
     if (!car) return res.status(404).send();
 
-    let _owner = Owner.findById(res.owner);
-    let index = _owner.cars.find(x => x === res._id);
+    let _owner = Owner.findById(car.owner.toString());
+    let index = _owner.cars.find(x => x.toString() === car._id.toString());
     if (index) {
       _owner.cars.splice(index, 1);
       await _owner.save();

@@ -46,6 +46,16 @@ router.patch('/cars/:id', (req, res) => {
     }).catch((e) => res.status(404).send());
 });
 
+router.delete('/cars/:id', (req, res) => {
+  let id = req.params.id;
+  // if (!ObjectID.isValid(id)) return res.status(404).send();
+  Car.findByIdAndRemove({ _id: id })
+    .then((car) => {
+      if (!car) return res.status(404).send();
+      res.send(car);
+    }).catch((e) => res.status(404).send());
+});
+
 // GET returns owner with given id
 router.get('/owner/:id', (req, res) => {
   let id = req.params.id;

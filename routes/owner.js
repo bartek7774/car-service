@@ -51,7 +51,7 @@ router.delete('/cars/:id', async (req, res) => {
   // if (!ObjectID.isValid(id)) return res.status(404).send();
 
   try {
-    let car = await Car.findByIdAndRemove({ _id: id });
+    let car = await Car.findOneAndRemove({ _id: id });
     if (!car) return res.status(404).send();
 
     let _owner = Owner.findById(car.owner.toString());

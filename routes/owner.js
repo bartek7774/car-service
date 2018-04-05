@@ -54,8 +54,7 @@ router.delete('/cars/:id', async (req, res) => {
     let car = await Car.findOneAndRemove({ _id: id });
     if (!car) return res.status(404).send('tutaj 1');
 
-    let _owner = Owner.findById(car.owner.toString());
-    return res.send(_owner);
+    let _owner = await Owner.findById(car.owner.toString());
     let index = _owner.cars.findIndex(x => x.toString() === car._id.toString());
     if (index>=0) {
       _owner.cars.splice(index, 1);

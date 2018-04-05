@@ -46,14 +46,24 @@ router.patch('/cars/:id', (req, res) => {
     }).catch((e) => res.status(404).send());
 });
 
-router.delete('/cars/:id', (req, res) => {
+router.delete('/cars/:id', async (req, res) => {
   let id = req.params.id;
   // if (!ObjectID.isValid(id)) return res.status(404).send();
-  Car.findByIdAndRemove({ _id: id })
-    .then((car) => {
-      if (!car) return res.status(404).send();
-      res.send(car);
-    }).catch((e) => res.status(404).send());
+  try {
+    let car = await Car.findByIdAndRemove({ _id: id });
+    if (!car) return res.status(404).send();
+
+    let _owner = Owner.findById(res.owner);
+    let index = _owner.cars.find(x => x === res._id);
+    if (index) {
+      _owner.cars.splice(index, 1);
+      await _owner.save();
+    }
+    res.send(car);
+  }
+  catch (err) {
+    res.status(404).send();
+  }
 });
 
 // GET returns owner with given id

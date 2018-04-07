@@ -36,7 +36,8 @@ router.patch('/cars/:id', (req, res) => {
     model: req.body.model,
     plate: req.body.plate,
     cost: req.body.cost,
-    isFullyDamaged: req.body.isFullyDamaged
+    isFullyDamaged: req.body.isFullyDamaged,
+    parts: req.body.parts
   };
   // if (!ObjectID.isValid(id)) return res.status(404).send();
   Car.findOneAndUpdate({ _id: id }, { $set: body }, { new: true })

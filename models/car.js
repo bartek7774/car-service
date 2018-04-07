@@ -12,7 +12,7 @@ let carSchema = Schema({
   deliveryDate: { type: Date, default: Date.now() },
   deadline: { type: Date, default: Date.now() + one_day * 14 },
   cost: { type: Number, default: 0 },
-  parts: [{ name: string, onStock: boolean, price: number }],
+  parts: [{ name: String, onStock: Boolean, price: Number }],
   isFullyDamaged: { type: Boolean, default: false },
   owner: { type: Schema.Types.ObjectId, ref: 'Owner', default: null }
 });

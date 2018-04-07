@@ -128,7 +128,8 @@ router.post('/owner/:id/car', async (req, res) => {
     model: req.body.model,
     plate: req.body.plate,
     cost: req.body.cost,
-    isFullyDamaged: req.body.isFullyDamaged
+    isFullyDamaged: req.body.isFullyDamaged,
+    parts:req.body.parts
   };
   try {
     let _owner = await Owner.findById(id);
